@@ -2,6 +2,7 @@ const connection = require('../database/connection')
 
 module.exports = {
     async create(request, response){
+        
         const informedEmail = request.body
         const informedPass = request.body
 
