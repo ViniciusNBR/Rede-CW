@@ -16,8 +16,10 @@ module.exports = {
     },
 
     async create(request, response){
-        const {name, email, password, sex} = request.body
+        const {name, email, password} = request.body
         const newUser = request.body
+        const error = 'O e-mail informado já foi cadastrado'
+        const ok = 'Cadastro realizado com sucesso!'
 
         const user = await connection('users').where('email', newUser.email).select('*').first()
 
@@ -27,7 +29,7 @@ module.exports = {
 
             if(newUser.email === user.email){
             
-                return response.status(409).json({error: 'E-mail já cadastrado.'})
+                return response.status(409).json({error})
             }
         }
         
@@ -35,10 +37,9 @@ module.exports = {
             name,
             email,
             password,
-            sex,
         })
         
-        return response.json({id})
+        return response.json({ok})
         
     },
 
